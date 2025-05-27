@@ -1,8 +1,10 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+import type { NextConfig } from 'next'
+import type { Configuration as WebpackConfig } from 'webpack'
+
+const nextConfig: NextConfig = {
   reactStrictMode: true,
-  webpack: (config) => {
-    config.module.rules.push({
+  webpack: (config: WebpackConfig) => {
+    config.module?.rules?.push({
       test: /\.pdf$/,
       type: 'asset/resource',
     });
@@ -17,4 +19,4 @@ const nextConfig = {
   }
 }
 
-module.exports = nextConfig 
+export default nextConfig 
