@@ -3,59 +3,72 @@
 import { useState, useEffect } from "react"
 import { motion } from "framer-motion"
 import { Menu, X } from "lucide-react"
+import { usePathname, useRouter } from "next/navigation"
 
 export const Navigation = () => {
     const [isOpen, setIsOpen] = useState(false)
-    const [activeSection, setActiveSection] = useState("home")
     const [scrolled, setScrolled] = useState(false)
     const [mounted, setMounted] = useState(false)
+    const pathname = usePathname()
+    const router = useRouter()
 
     useEffect(() => {
         setMounted(true)
     }, [])
 
     const navItems = [
-        { id: "home", label: "Home" },
-        { id: "projects", label: "Projects" },
-        { id: "about", label: "About" },
-        { id: "skills", label: "Skills" },
-        { id: "testimonials", label: "Testimonials" },
-        { id: "contacts", label: "Contacts" },
+        { id: "home", label: "Home", href: "/" },
+        { id: "projects", label: "Projects", href: "/project" },
+        { id: "about", label: "About", href: "/about" },
+        { id: "skills", label: "Skills", href: "/skills" },
+        { id: "testimonials", label: "Testimonials", href: "/testimonials" },
+        { id: "contacts", label: "Contacts", href: "/contacts" },
     ]
+
+    const handleNavigation = (href: string) => {
+        setIsOpen(false)
+        
+        if (href === "/") {
+            router.push("/")
+            return
+        }
+        
+        if (href === "/project") {
+            router.push("/project")
+            return
+        }
+
+        // Handle hash-based navigation
+        if (href.startsWith("/#")) {
+            const sectionId = href.replace("/#", "")
+            if (pathname === "/") {
+                // If we're already on the home page, just scroll
+                const element = document.getElementById(sectionId)
+                if (element) {
+                    element.scrollIntoView({ behavior: "smooth" })
+                }
+            } else {
+                // If we're on another page, navigate to home page first
+                router.push("/")
+                // Wait for navigation to complete before scrolling
+                setTimeout(() => {
+                    const element = document.getElementById(sectionId)
+                    if (element) {
+                        element.scrollIntoView({ behavior: "smooth" })
+                    }
+                }, 100)
+            }
+        }
+    }
 
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20)
-
-            const sections = navItems.map(item => ({
-                id: item.id,
-                element: document.getElementById(item.id)
-            }))
-
-            const scrollPosition = window.scrollY + 100
-
-            for (const { id, element } of sections) {
-                if (element) {
-                    const { offsetTop, offsetHeight } = element
-                    if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
-                        setActiveSection(id)
-                        break
-                    }
-                }
-            }
         }
 
         window.addEventListener("scroll", handleScroll)
         return () => window.removeEventListener("scroll", handleScroll)
-    })
-
-    const scrollToSection = (sectionId: string) => {
-        const element = document.getElementById(sectionId)
-        if (element) {
-            element.scrollIntoView({ behavior: "smooth" })
-            setIsOpen(false)
-        }
-    }
+    }, [])
 
     // Close mobile menu when clicking outside
     useEffect(() => {
@@ -85,25 +98,26 @@ export const Navigation = () => {
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
-                    <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        className="flex items-center space-x-2 cursor-pointer"
-                        onClick={() => scrollToSection("home")}
-                    >
-                        <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
-                            <span className="text-white font-semibold text-sm">AC</span>
-                        </div>
-                        <span className="font-semibold text-foreground hidden sm:block">Anand Chaudhary</span>
-                    </motion.div>
+                    <div onClick={() => handleNavigation("/")}>
+                        <motion.div
+                            whileHover={{ scale: 1.05 }}
+                            className="flex items-center space-x-2 cursor-pointer"
+                        >
+                            <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
+                                <span className="text-white font-semibold text-sm">AC</span>
+                            </div>
+                            <span className="font-semibold text-foreground hidden sm:block">Anand Chaudhary</span>
+                        </motion.div>
+                    </div>
 
                     {/* Desktop Navigation */}
                     <div className="hidden md:flex items-center space-x-8">
                         {navItems.map((item) => (
                             <motion.button
                                 key={item.id}
-                                onClick={() => scrollToSection(item.id)}
+                                onClick={() => handleNavigation(item.href)}
                                 className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                                    activeSection === item.id
+                                    pathname === item.href || (pathname === "/" && item.href.startsWith("/#"))
                                         ? "text-blue-500 border-b-2 border-blue-500"
                                         : "text-muted-foreground hover:text-blue-500 dark:hover:text-blue-500"
                                 }`}
@@ -118,7 +132,7 @@ export const Navigation = () => {
                     <div className="flex items-center space-x-4">
                         {/* Mobile Menu Button */}
                         <motion.button
-                            className="md:hidden w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+                            className="menu-button md:hidden w-9 h-9 rounded-full flex items-center justify-center hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
                             onClick={() => setIsOpen(!isOpen)}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
@@ -131,16 +145,16 @@ export const Navigation = () => {
 
                 {/* Mobile Menu */}
                 {isOpen && (
-                    <div className="md:hidden bg-white py-4 border-t border-border">
+                    <div className="mobile-menu md:hidden bg-white py-4 border-t border-border">
                         <div className="flex flex-col space-y-2">
                             {navItems.map((item) => (
                                 <button
                                     key={item.id}
-                                    onClick={() => scrollToSection(item.id)}
-                                    className={`px-4 py-2 text-sm font-medium text-left transition-colors duration-200 ${
-                                        activeSection === item.id
+                                    onClick={() => handleNavigation(item.href)}
+                                    className={`w-full px-4 py-2 text-sm font-medium text-left transition-colors duration-200 ${
+                                        pathname === item.href || (pathname === "/" && item.href.startsWith("/#"))
                                             ? "text-blue-500 bg-blue-50 dark:bg-blue-900/20"
-                                            : "text-muted-foreground hover:text-blue-500 dark:hover:text-blue-500"
+                                            : "text-muted-foreground hover:text-blue-500"
                                     }`}
                                 >
                                     {item.label}
