@@ -1,19 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  /** @type {(config: import('webpack').Configuration) => import('webpack').Configuration} */
   webpack: (config) => {
     config.module.rules.push({
       test: /\.pdf$/,
-      use: [
-        {
-          loader: 'file-loader',
-          options: {
-            name: '[name].[ext]',
-            outputPath: 'static/files',
-            publicPath: '/static/files',
-          },
-        },
-      ],
+      type: 'asset/resource',
     });
     return config;
   },

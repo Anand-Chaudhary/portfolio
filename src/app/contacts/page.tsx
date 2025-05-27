@@ -36,7 +36,7 @@ export default function ContactPage() {
       await new Promise(resolve => setTimeout(resolve, 1000)) // Simulate API call
       setSubmitStatus('success')
       setFormData({ name: "", email: "", subject: "", message: "" })
-    } catch (error) {
+    } catch {
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
@@ -106,7 +106,7 @@ export default function ContactPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            Ready to start your next project? Let's discuss how we can work together to bring your ideas to life.
+            Ready to start your next project? Let&apos;s discuss how we can work together to bring your ideas to life.
           </motion.p>
         </div>
       </section>
@@ -125,7 +125,7 @@ export default function ContactPage() {
                 <CardHeader>
                   <CardTitle className="text-2xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Send me a message</CardTitle>
                   <CardDescription className="text-black">
-                    Fill out the form below and I'll get back to you as soon as possible.
+                    Fill out the form below and I&apos;ll get back to you as soon as possible.
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
@@ -191,7 +191,7 @@ export default function ContactPage() {
                         animate={{ opacity: 1, y: 0 }}
                         className="p-4 bg-green-50 text-green-700 rounded-lg"
                       >
-                        Thank you for your message! I'll get back to you soon.
+                        Thank you for your message! I&apos;ll get back to you soon.
                       </motion.div>
                     )}
 
@@ -238,9 +238,9 @@ export default function ContactPage() {
               transition={{ duration: 0.6 }}
             >
               <div>
-                <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Let's connect</h2>
+                <h2 className="text-2xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Let&apos;s connect</h2>
                 <p className="text-black mb-8">
-                  I'm always interested in hearing about new opportunities and exciting projects. Whether you have a
+                  I&apos;m always interested in hearing about new opportunities and exciting projects. Whether you have a
                   question or just want to say hi, feel free to reach out!
                 </p>
               </div>
@@ -307,7 +307,7 @@ export default function ContactPage() {
                     <h3 className="font-semibold text-green-800">Currently Available</h3>
                   </div>
                   <p className="text-sm text-green-700">
-                    I'm currently accepting new projects and would love to hear about yours. Let's discuss how we can work
+                    I&apos;m currently accepting new projects and would love to hear about yours. Let&apos;s discuss how we can work
                     together!
                   </p>
                 </Card>

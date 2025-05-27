@@ -160,7 +160,7 @@ const Home = () => {
       await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
       setSubmitStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
-    } catch (error) {
+    } catch  {
       setSubmitStatus('error');
     } finally {
       setIsSubmitting(false);
@@ -173,6 +173,7 @@ const Home = () => {
   };
 
   useEffect(() => {
+    const currentRef = projectsRef.current;
     const observer = new IntersectionObserver(
       ([entry]) => {
         setProjectsInView(entry.isIntersecting);
@@ -180,13 +181,13 @@ const Home = () => {
       { threshold: 0.1 }
     );
 
-    if (projectsRef.current) {
-      observer.observe(projectsRef.current);
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (projectsRef.current) {
-        observer.unobserve(projectsRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, []);
@@ -218,12 +219,13 @@ const Home = () => {
 
               <div className="relative w-full h-full p-4">
                 <div className="w-full h-full rounded-2xl overflow-hidden">
-                  <img
+                  <Image
                     src={image.src}
                     alt="My Image"
                     width={400}
                     height={400}
                     className="object-cover w-full h-full"
+                    priority
                   />
                 </div>
               </div>
@@ -449,13 +451,13 @@ const Home = () => {
                 <h2 className="text-4xl lg:text-5xl font-bold mb-8 bg-gradient-to-r tracking-tighter leading-none from-blue-600 to-purple-600 bg-clip-text text-transparent pb-2">About Me</h2>
                 <div className="space-y-6 text-lg text-black leading-relaxed">
                   <p>
-                    I'm a dedicated full-stack developer with hands-on experience in building real-world projects using the MERN stack. From crafting intuitive frontends with React to designing scalable backend systems with Node.js and Express, I enjoy bringing ideas to life through code.
+                    I&apos;m a dedicated full-stack developer with hands-on experience in building real-world projects using the MERN stack. From crafting intuitive frontends with React to designing scalable backend systems with Node.js and Express, I enjoy bringing ideas to life through code.
                   </p>
                   <p>
-                    My journey includes internship experience, contributions to NGOs like Kalpabriksha Nepal, and continuous learning through personal projects and open-source exploration. I'm currently focused on leveling up my skills in scalable web development and preparing for future challenges.
+                    My journey includes internship experience, contributions to NGOs like Kalpabriksha Nepal, and continuous learning through personal projects and open-source exploration. I&apos;m currently focused on leveling up my skills in scalable web development and preparing for future challenges.
                   </p>
                   <p>
-                    Beyond coding, I'm always eager to explore emerging technologies, improve my DSA skills, and build tools that empower developers and small businesses.
+                    Beyond coding, I&apos;m always eager to explore emerging technologies, improve my DSA skills, and build tools that empower developers and small businesses.
                   </p>
                 </div>
 
@@ -648,9 +650,9 @@ const Home = () => {
             animate={contactInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent pb-2">Let's Work Together</h2>
+            <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent pb-2">Let&apos;s Work Together</h2>
             <p className="text-xl text-black max-w-3xl mx-auto">
-              Have a project in mind? I'd love to hear about it and discuss how we can bring your ideas to life.
+              Have a project in mind? I&apos;d love to hear about it and discuss how we can bring your ideas to life.
             </p>
           </motion.div>
 
@@ -664,7 +666,7 @@ const Home = () => {
               <CardHeader>
                 <CardTitle className="text-2xl text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Send me a message</CardTitle>
                 <CardDescription className="text-center text-black">
-                  Fill out the form below and I'll get back to you as soon as possible.
+                  Fill out the form below and I&apos;ll get back to you as soon as possible.
                 </CardDescription>
               </CardHeader>
               <CardContent>
@@ -730,7 +732,7 @@ const Home = () => {
                       animate={{ opacity: 1, y: 0 }}
                       className="p-4 bg-green-50 text-green-700 rounded-lg"
                     >
-                      Thank you for your message! I'll get back to you soon.
+                      Thank you for your message! I&apos;ll get back to you soon.
                     </motion.div>
                   )}
 

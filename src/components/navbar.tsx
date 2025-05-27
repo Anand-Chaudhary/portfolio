@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { motion } from "framer-motion"
 import { Menu, X } from "lucide-react"
 import { usePathname, useRouter } from "next/navigation"
@@ -17,14 +17,15 @@ export const Navigation = () => {
         setMounted(true)
     }, [])
 
-    const navItems = [
+    const navItems = useMemo(()=>[
         { id: "home", label: "Home", href: "/" },
         { id: "projects", label: "Projects", href: "/project" },
         { id: "about", label: "About", href: "/about" },
         { id: "skills", label: "Skills", href: "/#skills" },
         { id: "testimonials", label: "Testimonials", href: "/about#testimonials" },
         { id: "contacts", label: "Contacts", href: "/contacts" },
-    ]
+    ], [])
+    
 
     const handleNavigation = (item: { id: string; href?: string }) => {
         setIsOpen(false)
@@ -71,7 +72,7 @@ export const Navigation = () => {
         } else if (pathname === "/") {
             setActiveSection("home")
         }
-    }, [pathname])
+    }, [pathname, navItems])
 
     // Close mobile menu when clicking outside
     useEffect(() => {

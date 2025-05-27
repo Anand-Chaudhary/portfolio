@@ -223,7 +223,7 @@ export default function ProjectsPage() {
           <div className="max-w-3xl mx-auto">
             <h2 className="text-3xl font-bold mb-6">Ready to Start Your Project?</h2>
             <p className="text-xl text-muted-foreground mb-8">
-              Let's work together to bring your ideas to life with cutting-edge technology and exceptional user
+              Let&apos;s work together to bring your ideas to life with cutting-edge technology and exceptional user
               experience.
             </p>
             <Button

@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Star, Linkedin } from "lucide-react"
-import { StaticImageData } from "next/image"
+import Image, { StaticImageData } from "next/image"
 import { motion } from "framer-motion"
 
 type TestimonialProps = {
@@ -40,9 +40,11 @@ export const Testimonial = ({ image, name, testimony, postion, company, rating, 
                     <p className="text-black italic">{testimony}</p>
                     <div className="flex gap-4 pt-4">
                         <div className="relative w-12 h-12 rounded-full overflow-hidden">
-                            <img
+                            <Image
                                 src={typeof image === 'string' ? image : image.src}
                                 alt={name}
+                                width={48}
+                                height={48}
                                 className="object-cover w-full h-full"
                             />
                         </div>

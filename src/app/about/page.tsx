@@ -44,7 +44,7 @@ export default function AboutPage() {
                                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Me</span>
                             </h1>
                             <p className="text-xl text-muted-foreground mb-6">
-                                I'm a passionate full-stack developer with over 3 years of experience creating digital solutions that
+                                I&apos;m a passionate full-stack developer with over 3 years of experience creating digital solutions that
                                 make a difference.
                             </p>
                             <p className="text-lg text-muted-foreground mb-8">
@@ -197,7 +197,7 @@ export default function AboutPage() {
 
                         {/* Interests */}
                         <div>
-                            <h2 className="text-3xl font-bold mb-8">When I'm Not Coding</h2>
+                            <h2 className="text-3xl font-bold mb-8">When I&apos;m Not Coding</h2>
                             <div className="space-y-6">
                                 <div className="flex items-start gap-4">
                                     <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-lg flex items-center justify-center">
