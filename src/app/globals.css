@@ -2,7 +2,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    background: linear-gradient(to top, #add8e6, #ffffff);;
     --foreground: 222.2 84% 4.9%;
   }
 
@@ -11,4 +11,3 @@
     --foreground: 210 40% 98%;
   }
 }
-

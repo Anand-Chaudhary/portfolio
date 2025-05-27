@@ -22,6 +22,7 @@ const config = {
       fontFamily: {
         inter: ["var(--font-inter)", "system-ui", "sans-serif"],
         satoshi: ["var(--font-satoshi)", "var(--font-inter)", "system-ui", "sans-serif"],
+        poppins: ['Poppins', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
