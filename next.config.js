@@ -4,7 +4,16 @@ const nextConfig = {
   webpack: (config) => {
     config.module.rules.push({
       test: /\.pdf$/,
-      type: 'asset/resource',
+      use: [
+        {
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: 'static/files',
+            publicPath: '/static/files',
+          },
+        },
+      ],
     });
     return config;
   },

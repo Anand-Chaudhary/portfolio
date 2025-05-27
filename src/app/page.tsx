@@ -15,7 +15,9 @@ import image from "@/assets/IMG-20250404-WA0278.jpg"
 import pr1 from "@/assets/image.png"
 import login from "@/assets/LoginPage.png"
 import kalpabriksha from '@/assets/Screenshot 2025-05-27 145208.png'
-
+import { Testimonial } from "@/components/testimonial";
+import himani from "@/assets/494857252_1416480189355725_6052832778783234089_n.jpg"
+import pranjal from "@/assets/1747921444235.jpg"
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -104,16 +106,39 @@ const skills = [
   { name: "C++", level: 30, category: "Backend" },
 ]
 
+const testimonies = [
+  {
+    name: "Himani Singhi",
+    position: "Data Specialist",
+    company: "C2FO",
+    testimony: "Working with Anand on our project was an amazing experience. They were super dedicated, brought fresh ideas to the table, and handled challenges like a pro. Their energy and problem-solving mindset kept the whole team motivated. Anyone would be lucky to have them on their team!",
+    rating: 4.5,
+    image: himani,
+    linkedin: "https://www.linkedin.com/in/himani-singhi/"
+  },
+  {
+    name: "Pranjal Sapkota",
+    position: "Student",
+    company: "VIT",
+    testimony: " I've had the pleasure of working with Aakash Chaudhary. He is highly proficient in React.js and demonstrates strong command over the MERN stack. Aakash is dependable, quick to learn, and consistently delivers high-quality code. I highly recommend him for any full-stack development role.",
+    rating: 5,
+    image: pranjal,
+    linkedin: "https://www.linkedin.com/in/pranjal-sapkota-6370822a6/"
+  },
+]
+
 const Home = () => {
   const projectsRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const skillsRef = useRef<HTMLDivElement>(null)
   const contactRef = useRef<HTMLDivElement>(null)
+  const testimonialRef = useRef<HTMLDivElement>(null)
 
   const [projectsInView, setProjectsInView] = useState(false);
   const aboutInView = useInView(aboutRef, { once: true, margin: "-100px" })
   const skillsInView = useInView(skillsRef, { once: true, margin: "-100px" })
   const contactInView = useInView(contactRef, { once: true, margin: "-100px" })
+  const testimonialInView = useInView(testimonialRef, { once: true, margin: "-100px" })
 
   // Add form state
   const [formData, setFormData] = useState({
@@ -237,17 +262,17 @@ const Home = () => {
               transition={{ duration: 0.8, delay: 1.2 }}
             >
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <motion.button
-                  className="group cursor-pointer bg-blue-600 hover:bg-blue-700 flex justify-center items-center text-white px-8 py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300"
+                <Button
+                  className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white"
                   onClick={() => document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })}
                 >
                   View Projects
                   <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
-                </motion.button>
+                </Button>
               </motion.div>
 
               <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
-                <motion.button
+                <Button
                   className="px-8 flex justify-center
                items-center cursor-pointer py-3 rounded-xl border-2 hover:bg-gray-50 transition-all duration-300"
                   onClick={() => document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" })}
@@ -255,7 +280,7 @@ const Home = () => {
                   Contact Me
                   <ArrowDown className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
 
-                </motion.button>
+                </Button>
               </motion.div>
             </motion.div>
 
@@ -450,9 +475,12 @@ const Home = () => {
                     variant="outline"
                     size="lg"
                     className="group bg-white backdrop-blur-sm border-2 hover:bg-gray-50 transition-all duration-300"
+                    asChild
                   >
-                    <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform duration-200" />
-                    Download CV
+                    <a href="/files/Resume.pdf" download="Resume.pdf">
+                      <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform duration-200" />
+                      Download CV
+                    </a>
                   </Button>
                 </motion.div>
               </motion.div>
@@ -498,7 +526,7 @@ const Home = () => {
           </div>
         </section>
       </section>
-      
+
       {/*Skills Section*/}
       <section id="skills" ref={skillsRef} className="py-24 border-t-3 border-white">
         <div className="container mx-auto px-6 lg:px-8">
@@ -576,6 +604,38 @@ const Home = () => {
               </div>
             </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/*Testimonial*/}
+      <section id="testimonial" ref={testimonialRef} className="py-12 border-t-3 border-white">
+        <div className="container">
+          <motion.div
+            className="mb-8"
+            initial={{ opacity: 0, y: 30 }}
+            animate={testimonialInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl text-center lg:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent pb-2">Testimonials</h2>
+            <div className="cards-container grid grid-cols-1 md:grid-cols-2 gap-4 max-w-5xl mx-auto mt-6">
+              {
+                testimonies.map((testimony, index) => (
+                  <motion.div
+                    key={index}
+                    variants={fadeInUp}
+                    whileHover={{
+                      y: -8,
+                      rotateX: 2,
+                      rotateY: 2,
+                      transition: { duration: 0.3 },
+                    }}
+                  >
+                    <Testimonial image={testimony.image} linkedin={testimony.linkedin} rating={testimony.rating} name={testimony.name} testimony={testimony.testimony} postion={testimony.position} company={testimony.company} />
+                  </motion.div>
+                ))
+              }
+            </div>
+          </motion.div>
         </div>
       </section>
 
