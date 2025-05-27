@@ -5,6 +5,7 @@ import Image from "next/image"
 import pr1 from "@/assets/image.png"
 import login from "@/assets/LoginPage.png"
 import kalpabriksha from '@/assets/Screenshot 2025-05-27 145208.png'
+import cnc from "@/assets/Screenshot 2025-05-27 163405.png"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import {
@@ -52,7 +53,7 @@ export default function ProjectsPage() {
       id: 4,
       title: "Code&Chat",
       description: "CodeNChat is a powerful web-based collaborative code editor that allows multiple users to work together in real-time. It features a built-in chat system, file management, and live code execution environment.",
-      image: "/placeholder.svg?height=300&width=400",
+      image: cnc.src,
       technologies: ["React", "MongoDB", "Express.js", "WebCoontainers", "Socket.io", "Gemini API"],
       githubUrl: "https://github.com/Anand-Chaudhary/CodeNChat",
       featured: false,

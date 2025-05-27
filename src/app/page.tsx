@@ -1,13 +1,16 @@
 "use client"
 
-import { motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import Image from "next/image";
-import { ArrowDown, ArrowRight, Github, Instagram, Linkedin, Mail, ExternalLink } from "lucide-react";
+import { ArrowDown, ArrowRight, Github, Instagram, Linkedin, Mail, ExternalLink, MapPin, Calendar, Download, Code, Database, Send } from "lucide-react";
 import { Marquee } from "@/components/marquee";
 import { useRef, useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import image from "@/assets/IMG-20250404-WA0278.jpg"
 import pr1 from "@/assets/image.png"
 import login from "@/assets/LoginPage.png"
@@ -26,6 +29,12 @@ const staggerContainer = {
     },
   },
 };
+
+const slideInLeft = {
+  initial: { opacity: 0, x: -60 },
+  animate: { opacity: 1, x: 0 },
+  transition: { duration: 0.6, ease: "easeOut" },
+}
 
 const marqueeItems = [
   "React",
@@ -77,9 +86,66 @@ const projects = [
   },
 ]
 
+const experience = [
+  {
+    title: "Frontend Developer Intern",
+    company: "Kalpabriksha Nepal",
+    period: "January 2025 - March 2025",
+    description: "As a Frontend Intern, I worked on developing and improving user interfaces for internal platforms aimed at youth empowerment and social impact. Using React.js, I collaborated with the team to build responsive, user-friendly components and ensured a clean, consistent UI aligned with the organization's mission. This experience helped me understand the importance of accessibility, real-world collaboration, and building with purpose.",
+  },
+]
+
+const skills = [
+  { name: "JavaScript/TypeScript", level: 85, category: "Frontend" },
+  { name: "React/Next.js", level: 70, category: "Frontend" },
+  { name: "Node.js/Express", level: 70, category: "Backend" },
+  { name: "MongoDB", level: 75, category: "Database" },
+  { name: "CI/CD", level: 80, category: "DevOps" },
+  { name: "C++", level: 30, category: "Backend" },
+]
+
 const Home = () => {
   const projectsRef = useRef<HTMLDivElement>(null);
+  const aboutRef = useRef<HTMLDivElement>(null);
+  const skillsRef = useRef<HTMLDivElement>(null)
+  const contactRef = useRef<HTMLDivElement>(null)
+
   const [projectsInView, setProjectsInView] = useState(false);
+  const aboutInView = useInView(aboutRef, { once: true, margin: "-100px" })
+  const skillsInView = useInView(skillsRef, { once: true, margin: "-100px" })
+  const contactInView = useInView(contactRef, { once: true, margin: "-100px" })
+
+  // Add form state
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      // Here you would typically send the form data to your backend
+      await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate API call
+      setSubmitStatus('success');
+      setFormData({ name: '', email: '', subject: '', message: '' });
+    } catch (error) {
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -293,10 +359,10 @@ const Home = () => {
                             </a>
                           </Button>
                         )}
-                        <Button 
-                          size="sm" 
-                          variant="secondary" 
-                          className={`backdrop-blur-sm ${!project.liveUrl || project.liveUrl === "#" ? "w-full" : ""}`} 
+                        <Button
+                          size="sm"
+                          variant="secondary"
+                          className={`backdrop-blur-sm ${!project.liveUrl || project.liveUrl === "#" ? "w-full" : ""}`}
                           asChild
                         >
                           <a className="text-white" href={project.githubUrl} target="_blank" rel="noopener noreferrer">
@@ -341,6 +407,306 @@ const Home = () => {
                 <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </Button>
+          </motion.div>
+        </div>
+      </section>
+
+      {/*About Me*/}
+      <section id="about">
+        <section id="about" ref={aboutRef} className="py-24 border-white border-t-3">
+          <div className="container mx-auto px-6 lg:px-8">
+            <div className="grid lg:grid-cols-2 gap-16 items-start">
+              <motion.div
+                initial={{ opacity: 0, x: -50 }}
+                animate={aboutInView ? { opacity: 1, x: 0 } : {}}
+                transition={{ duration: 0.6 }}
+              >
+                <h2 className="text-4xl lg:text-5xl font-bold mb-8 bg-gradient-to-r tracking-tighter leading-none from-blue-600 to-purple-600 bg-clip-text text-transparent pb-2">About Me</h2>
+                <div className="space-y-6 text-lg text-black leading-relaxed">
+                  <p>
+                    I'm a dedicated full-stack developer with hands-on experience in building real-world projects using the MERN stack. From crafting intuitive frontends with React to designing scalable backend systems with Node.js and Express, I enjoy bringing ideas to life through code.
+                  </p>
+                  <p>
+                    My journey includes internship experience, contributions to NGOs like Kalpabriksha Nepal, and continuous learning through personal projects and open-source exploration. I'm currently focused on leveling up my skills in scalable web development and preparing for future challenges.
+                  </p>
+                  <p>
+                    Beyond coding, I'm always eager to explore emerging technologies, improve my DSA skills, and build tools that empower developers and small businesses.
+                  </p>
+                </div>
+
+                <div className="mt-8 flex items-center gap-6 text-gray-600 dark:text-gray-400">
+                  <div className="flex text-black items-center gap-2">
+                    <MapPin className="h-4 w-4" />
+                    <span>Godawori, Lalitpur Nepal</span>
+                  </div>
+                  <div className="flex text-black items-center gap-2">
+                    <Calendar className="h-4 w-4" />
+                    <span>Available for hire</span>
+                  </div>
+                </div>
+
+                <motion.div className="mt-8" whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+                  <Button
+                    variant="outline"
+                    size="lg"
+                    className="group bg-white backdrop-blur-sm border-2 hover:bg-gray-50 transition-all duration-300"
+                  >
+                    <Download className="mr-2 h-4 w-4 group-hover:scale-110 transition-transform duration-200" />
+                    Download CV
+                  </Button>
+                </motion.div>
+              </motion.div>
+
+              {/* Experience Timeline */}
+              <div className="relative">
+                <motion.div
+                  className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-600 to-purple-600 origin-top"
+                  initial={{ scaleY: 0 }}
+                  animate={aboutInView ? { scaleY: 1 } : {}}
+                  transition={{ duration: 1.5, delay: 0.3 }}
+                />
+
+                <motion.div
+                  className="space-y-8"
+                  variants={staggerContainer}
+                  initial="initial"
+                  animate={aboutInView ? "animate" : "initial"}
+                >
+                  {experience.map((job, index) => (
+                    <motion.div key={index} className="relative" variants={slideInLeft}>
+                      <div className="absolute left-6 w-4 h-4 bg-blue-600 rounded-full border-4 border-white dark:border-gray-900" />
+
+                      <Card className="ml-16 bg-white backdrop-blur-sm border-0 shadow-lg">
+                        <CardHeader>
+                          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                            <CardTitle className="text-lg">{job.title}</CardTitle>
+                            <Badge variant="outline">{job.period}</Badge>
+                          </div>
+                          <CardDescription className="text-base font-medium text-blue-600 dark:text-blue-400">
+                            {job.company}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent>
+                          <p className="text-black">{job.description}</p>
+                        </CardContent>
+                      </Card>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+      
+      {/*Skills Section*/}
+      <section id="skills" ref={skillsRef} className="py-24 border-t-3 border-white">
+        <div className="container mx-auto px-6 lg:px-8">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            animate={skillsInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent pb-2">Skills & Expertise</h2>
+            <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+              Technologies and tools I use to bring ideas to life.
+            </p>
+          </motion.div>
+
+          <div className="max-w-4xl mx-auto">
+            <motion.div
+              className="grid md:grid-cols-2 gap-8"
+              variants={staggerContainer}
+              initial="initial"
+              animate={skillsInView ? "animate" : "initial"}
+            >
+              <div>
+                <h3 className="text-xl font-semibold mb-6 flex items-center gap-2 text-black">
+                  <Code className="h-5 w-5 text-blue-600" />
+                  Programming & Frameworks
+                </h3>
+                <div className="space-y-6">
+                  {skills
+                    .filter((skill) => ["Frontend", "Backend"].includes(skill.category))
+                    .map((skill, index) => (
+                      <motion.div key={skill.name} variants={slideInLeft}>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="font-medium text-black">{skill.name}</span>
+                          <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                        </div>
+                        <div className="h-2 bg-white/30 backdrop-blur-xl rounded-full overflow-hidden">
+                          <motion.div
+                            className="h-full bg-gradient-to-r from-blue-600 to-purple-600"
+                            initial={{ width: 0 }}
+                            animate={skillsInView ? { width: `${skill.level}%` } : {}}
+                            transition={{ duration: 1.5, delay: index * 0.1, ease: "easeOut" }}
+                          />
+                        </div>
+                      </motion.div>
+                    ))}
+                </div>
+              </div>
+
+              <div>
+                <h3 className="text-xl font-semibold mb-6 flex items-center gap-2 text-black">
+                  <Database className="h-5 w-5 text-purple-600" />
+                  Database & DevOps
+                </h3>
+                <div className="space-y-6">
+                  {skills
+                    .filter((skill) => ["Database", "DevOps"].includes(skill.category))
+                    .map((skill, index) => (
+                      <motion.div key={skill.name} variants={slideInLeft}>
+                        <div className="flex items-center justify-between mb-2">
+                          <span className="font-medium text-black">{skill.name}</span>
+                          <span className="text-sm text-muted-foreground">{skill.level}%</span>
+                        </div>
+                        <div className="h-2 bg-white/30 backdrop-blur-xl rounded-full overflow-hidden">
+                          <motion.div
+                            className="h-full bg-gradient-to-r from-blue-600 to-purple-600"
+                            initial={{ width: 0 }}
+                            animate={skillsInView ? { width: `${skill.level}%` } : {}}
+                            transition={{ duration: 1.5, delay: index * 0.1, ease: "easeOut" }}
+                          />
+                        </div>
+                      </motion.div>
+                    ))}
+                </div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/*Contact me*/}
+      <section id="contact" ref={contactRef} className="py-24 border-t-3 border-white">
+        <div className="container mx-auto px-6 lg:px-8">
+          <motion.div
+            className="text-center mb-16"
+            initial={{ opacity: 0, y: 30 }}
+            animate={contactInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+          >
+            <h2 className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent pb-2">Let's Work Together</h2>
+            <p className="text-xl text-black max-w-3xl mx-auto">
+              Have a project in mind? I'd love to hear about it and discuss how we can bring your ideas to life.
+            </p>
+          </motion.div>
+
+          <motion.div
+            className="max-w-2xl mx-auto"
+            initial={{ opacity: 0, y: 30 }}
+            animate={contactInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: 0.2 }}
+          >
+            <Card className="bg-white/70 backdrop-blur-xl border-0 shadow-2xl">
+              <CardHeader>
+                <CardTitle className="text-2xl text-center bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">Send me a message</CardTitle>
+                <CardDescription className="text-center text-black">
+                  Fill out the form below and I'll get back to you as soon as possible.
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="space-y-2">
+                      <Label htmlFor="name" className="text-black">Name</Label>
+                      <Input
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="Your name"
+                        required
+                        className="bg-white/50 backdrop-blur-sm border-gray-200 focus:border-blue-500 transition-all duration-300"
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="email" className="text-black">Email</Label>
+                      <Input
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        placeholder="your.email@example.com"
+                        required
+                        className="bg-white/50 backdrop-blur-sm border-gray-200 focus:border-blue-500 transition-all duration-300"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="subject" className="text-black">Subject</Label>
+                    <Input
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
+                      onChange={handleChange}
+                      placeholder="What's this about?"
+                      required
+                      className="bg-white/50 backdrop-blur-sm border-gray-200 focus:border-blue-500 transition-all duration-300"
+                    />
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="message" className="text-black">Message</Label>
+                    <Textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      placeholder="Tell me about your project..."
+                      rows={6}
+                      required
+                      className="bg-white/50 backdrop-blur-sm border-gray-200 focus:border-blue-500 transition-all duration-300 resize-none"
+                    />
+                  </div>
+
+                  {submitStatus === 'success' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-4 bg-green-50 text-green-700 rounded-lg"
+                    >
+                      Thank you for your message! I'll get back to you soon.
+                    </motion.div>
+                  )}
+
+                  {submitStatus === 'error' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="p-4 bg-red-50 text-red-700 rounded-lg"
+                    >
+                      Something went wrong. Please try again later.
+                    </motion.div>
+                  )}
+
+                  <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }}>
+                    <Button
+                      type="submit"
+                      size="lg"
+                      disabled={isSubmitting}
+                      className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white shadow-lg hover:shadow-xl transition-all duration-300"
+                    >
+                      {isSubmitting ? (
+                        <div className="flex items-center gap-2">
+                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          Sending...
+                        </div>
+                      ) : (
+                        <>
+                          <Send className="mr-2 h-4 w-4" />
+                          Send Message
+                        </>
+                      )}
+                    </Button>
+                  </motion.div>
+                </form>
+              </CardContent>
+            </Card>
           </motion.div>
         </div>
       </section>

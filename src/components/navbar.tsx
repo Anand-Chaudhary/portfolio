@@ -9,6 +9,7 @@ export const Navigation = () => {
     const [isOpen, setIsOpen] = useState(false)
     const [scrolled, setScrolled] = useState(false)
     const [mounted, setMounted] = useState(false)
+    const [activeSection, setActiveSection] = useState<string>("")
     const pathname = usePathname()
     const router = useRouter()
 
@@ -20,55 +21,57 @@ export const Navigation = () => {
         { id: "home", label: "Home", href: "/" },
         { id: "projects", label: "Projects", href: "/project" },
         { id: "about", label: "About", href: "/about" },
-        { id: "skills", label: "Skills", href: "/skills" },
-        { id: "testimonials", label: "Testimonials", href: "/testimonials" },
+        { id: "skills", label: "Skills", href: "/#skills" },
+        { id: "testimonials", label: "Testimonials", href: "/about#testimonials" },
         { id: "contacts", label: "Contacts", href: "/contacts" },
     ]
 
-    const handleNavigation = (href: string) => {
+    const handleNavigation = (item: { id: string; href?: string }) => {
         setIsOpen(false)
         
-        if (href === "/") {
-            router.push("/")
+        if (item.href) {
+            router.push(item.href)
+            setActiveSection(item.id)
             return
-        }
-        
-        if (href === "/project") {
-            router.push("/project")
-            return
-        }
-
-        // Handle hash-based navigation
-        if (href.startsWith("/#")) {
-            const sectionId = href.replace("/#", "")
-            if (pathname === "/") {
-                // If we're already on the home page, just scroll
-                const element = document.getElementById(sectionId)
-                if (element) {
-                    element.scrollIntoView({ behavior: "smooth" })
-                }
-            } else {
-                // If we're on another page, navigate to home page first
-                router.push("/")
-                // Wait for navigation to complete before scrolling
-                setTimeout(() => {
-                    const element = document.getElementById(sectionId)
-                    if (element) {
-                        element.scrollIntoView({ behavior: "smooth" })
-                    }
-                }, 100)
-            }
         }
     }
 
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20)
+
+            // Only check for active sections if we're on the home page
+            if (pathname === "/") {
+                const sections = ["skills", "projects", "about", "testimonials"]
+                let currentSection = "home"
+
+                sections.forEach((section) => {
+                    const element = document.getElementById(section)
+                    if (element) {
+                        const rect = element.getBoundingClientRect()
+                        if (rect.top <= 100 && rect.bottom >= 100) {
+                            currentSection = section
+                        }
+                    }
+                })
+
+                setActiveSection(currentSection)
+            }
         }
 
         window.addEventListener("scroll", handleScroll)
         return () => window.removeEventListener("scroll", handleScroll)
-    }, [])
+    }, [pathname])
+
+    // Update active section when pathname changes
+    useEffect(() => {
+        const currentItem = navItems.find(item => item.href === pathname)
+        if (currentItem) {
+            setActiveSection(currentItem.id)
+        } else if (pathname === "/") {
+            setActiveSection("home")
+        }
+    }, [pathname])
 
     // Close mobile menu when clicking outside
     useEffect(() => {
@@ -98,7 +101,7 @@ export const Navigation = () => {
         >
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 <div className="flex items-center justify-between h-16">
-                    <div onClick={() => handleNavigation("/")}>
+                    <div onClick={() => handleNavigation({ id: "home", href: "/" })}>
                         <motion.div
                             whileHover={{ scale: 1.05 }}
                             className="flex items-center space-x-2 cursor-pointer"
@@ -115,9 +118,9 @@ export const Navigation = () => {
                         {navItems.map((item) => (
                             <motion.button
                                 key={item.id}
-                                onClick={() => handleNavigation(item.href)}
+                                onClick={() => handleNavigation(item)}
                                 className={`relative px-3 py-2 text-sm font-medium transition-colors duration-200 ${
-                                    pathname === item.href || (pathname === "/" && item.href.startsWith("/#"))
+                                    item.id === activeSection
                                         ? "text-blue-500 border-b-2 border-blue-500"
                                         : "text-muted-foreground hover:text-blue-500 dark:hover:text-blue-500"
                                 }`}
@@ -150,9 +153,9 @@ export const Navigation = () => {
                             {navItems.map((item) => (
                                 <button
                                     key={item.id}
-                                    onClick={() => handleNavigation(item.href)}
+                                    onClick={() => handleNavigation(item)}
                                     className={`w-full px-4 py-2 text-sm font-medium text-left transition-colors duration-200 ${
-                                        pathname === item.href || (pathname === "/" && item.href.startsWith("/#"))
+                                        item.id === activeSection
                                             ? "text-blue-500 bg-blue-50 dark:bg-blue-900/20"
                                             : "text-muted-foreground hover:text-blue-500"
                                     }`}
