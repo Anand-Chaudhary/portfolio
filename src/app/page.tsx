@@ -120,7 +120,7 @@ const testimonies = [
     name: "Pranjal Sapkota",
     position: "Student",
     company: "VIT",
-    testimony: " I've had the pleasure of working with Aakash Chaudhary. He is highly proficient in React.js and demonstrates strong command over the MERN stack. Aakash is dependable, quick to learn, and consistently delivers high-quality code. I highly recommend him for any full-stack development role.",
+    testimony: " I've had the pleasure of working with Anand Chaudhary. He is highly proficient in React.js and demonstrates strong command over the MERN stack. Anand is dependable, quick to learn, and consistently delivers high-quality code. I highly recommend him for any full-stack development role.",
     rating: 5,
     image: pranjal,
     linkedin: "https://www.linkedin.com/in/pranjal-sapkota-6370822a6/"

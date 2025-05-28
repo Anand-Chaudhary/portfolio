@@ -4,6 +4,7 @@ import "./globals.css";
 import { Navigation } from "@/components/navbar";
 import { ThemeProvider } from "next-themes";
 import { ParticleBackground } from "@/components/particles";
+import { CursorDot } from "@/components/CursorDot";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -17,8 +18,8 @@ const satoshi = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "Portfolio",
-  description: "For Anand",
+  title: "Anand Chaudhary | Portfolio",
+  description: "Personal portfolio website of Anand Chaudhary - Full Stack Developer",
 };
 
 export default function RootLayout({
@@ -33,6 +34,7 @@ export default function RootLayout({
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ParticleBackground />
+          <CursorDot />
           <Navigation />
           {children}
         </ThemeProvider>
