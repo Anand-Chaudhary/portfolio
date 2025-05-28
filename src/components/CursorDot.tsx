@@ -23,7 +23,6 @@ export const CursorDot = () => {
   useEffect(() => {
     const animate = (time: number) => {
       if (previousTimeRef.current !== undefined) {
-        const deltaTime = time - previousTimeRef.current;
         
         setDotPosition(prev => ({
           x: prev.x + (position.x - prev.x) * 0.15,
