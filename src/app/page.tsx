@@ -111,7 +111,7 @@ const testimonies = [
     name: "Himani Singhi",
     position: "Data Specialist",
     company: "C2FO",
-    testimony: "Working with Anand on our project was an amazing experience. They were super dedicated, brought fresh ideas to the table, and handled challenges like a pro. Their energy and problem-solving mindset kept the whole team motivated. Anyone would be lucky to have them on their team!",
+    testimony: "Working with Anand on our project was an amazing experience. He was super dedicated, brought fresh ideas to the table, and handled challenges like a pro. His energy and problem-solving mindset kept the whole team motivated. Anyone would be lucky to have them on their team!",
     rating: 4.5,
     image: himani,
     linkedin: "https://www.linkedin.com/in/himani-singhi/"
