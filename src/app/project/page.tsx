@@ -36,7 +36,7 @@ export default function ProjectsPage() {
       description: "A simple and efficient Job Management System built using Vite and React. This app allows organizations to manage tasks effectively by providing separate dashboards for Admins and Employees.",
       technologies: ["React", "Context API", "Local Storage"],
       image: login.src,
-      github: "https://github.com/Anand-Chaudhary/jobManagementApp",
+      githubUrl: "https://github.com/Anand-Chaudhary/jobManagementApp",
       featured: true,
     },
     {
@@ -46,7 +46,7 @@ export default function ProjectsPage() {
       technologies: ["React"],
       image: kalpabriksha.src,
       liveUrl: "https://www.kalpabrikshanepal.org.np/",
-      github: "https://github.com/Anand-Chaudhary/kalpabriksha-react",
+      githubUrl: "https://github.com/Anand-Chaudhary/kalpabriksha-react",
       featured: false,
     },
     {
@@ -97,7 +97,7 @@ export default function ProjectsPage() {
             {featuredProjects.map((project) => (
               <Card
                 key={project.id}
-                className="group overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
+                className="group bg-white overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2"
               >
                 <div className="relative overflow-hidden">
                   <Image
@@ -159,7 +159,7 @@ export default function ProjectsPage() {
             {otherProjects.map((project) => (
               <Card
                 key={project.id}
-                className="group overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                className="group bg-white overflow-hidden border-0 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
               >
                 <div className="relative overflow-hidden">
                   <Image
@@ -231,7 +231,7 @@ export default function ProjectsPage() {
               asChild
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
             >
-              <Link href="/contact">Get In Touch</Link>
+              <Link href="/contacts">Get In Touch</Link>
             </Button>
           </div>
         </div>

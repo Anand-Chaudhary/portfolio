@@ -22,7 +22,7 @@ export const Navigation = () => {
         { id: "projects", label: "Projects", href: "/project" },
         { id: "about", label: "About", href: "/about" },
         { id: "skills", label: "Skills", href: "/#skills" },
-        { id: "testimonials", label: "Testimonials", href: "/about#testimonials" },
+        { id: "testimonials", label: "Testimonials", href: "/#testimonial" },
         { id: "contacts", label: "Contacts", href: "/contacts" },
     ], [])
     
@@ -31,7 +31,20 @@ export const Navigation = () => {
         setIsOpen(false)
         
         if (item.href) {
-            router.push(item.href)
+            if (item.href.startsWith('/#')) {
+                // Handle hash navigation
+                const [path, hash] = item.href.split('#')
+                if (pathname !== path) {
+                    router.push(item.href)
+                } else {
+                    const element = document.getElementById(hash)
+                    if (element) {
+                        element.scrollIntoView({ behavior: 'smooth' })
+                    }
+                }
+            } else {
+                router.push(item.href)
+            }
             setActiveSection(item.id)
             return
         }

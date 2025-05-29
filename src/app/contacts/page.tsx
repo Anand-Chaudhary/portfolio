@@ -32,11 +32,11 @@ export default function ContactPage() {
     setSubmitStatus('idle')
 
     try {
-      // Here you would typically send the form data to your backend
-      await new Promise(resolve => setTimeout(resolve, 1000)) // Simulate API call
+      // Simulate form submission
+      await new Promise(resolve => setTimeout(resolve, 1000))
       setSubmitStatus('success')
       setFormData({ name: "", email: "", subject: "", message: "" })
-    } catch {
+    } catch (error) {
       setSubmitStatus('error')
     } finally {
       setIsSubmitting(false)
@@ -44,9 +44,10 @@ export default function ContactPage() {
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target
     setFormData((prev) => ({
       ...prev,
-      [e.target.name]: e.target.value,
+      [name]: value,
     }))
   }
 

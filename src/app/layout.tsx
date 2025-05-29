@@ -5,6 +5,7 @@ import { Navigation } from "@/components/navbar";
 import { ThemeProvider } from "next-themes";
 import { ParticleBackground } from "@/components/particles";
 import { CursorDot } from "@/components/CursorDot";
+import { Preloader } from "@/components/preLoader";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -33,6 +34,7 @@ export default function RootLayout({
         className={`${inter.variable} ${satoshi.variable} antialiased`}
       >
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <Preloader />
           <ParticleBackground />
           <CursorDot />
           <Navigation />
