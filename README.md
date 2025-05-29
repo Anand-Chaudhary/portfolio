@@ -24,7 +24,7 @@ A modern, responsive portfolio website built with Next.js 15, featuring a beauti
 First, clone the repository and install dependencies:
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/Anand-Chaudhary/portfolio.git
 cd portfolio
 npm install
 ```
