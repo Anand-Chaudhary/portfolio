@@ -24,7 +24,14 @@ export default function AboutPage() {
             period: "January 2025 - March 2025",
             description: "Worked as a Frontend Intern at Kalpabriksha Nepal, where I built responsive user interfaces using React.js for platforms focused on youth empowerment. Collaborated with the team to improve UI/UX and gained hands-on experience in real-world web development.",
             achievements: ["Built responsive and accessible UI components", "Applied Git and version control in a team setting", "Contributed to real-time updates and bug fixes"],
-        }
+        },
+        {
+            title: "Full Stack Developer Intern",
+            company: "Kalpabriksha Nepal",
+            period: "June 2025 - July 2025",
+            description: "Built full-stack web apps using the MENN stack. Worked on UI, APIs, authentication, and database design. Focused on clean code, learning fast, and contributing to real projects.",
+            achievements: ["Built a MERN-based Volunteer Management System, reducing manual coordination by 60% through task tracking and role-based access.", "Integrated real-time updates and notifications, improving volunteer response time by 40%.", "Collaborated with 3+ stakeholders to deploy a scalable solution used by 100+ volunteers."]
+        },
     ]
 
     const certifications = [
@@ -141,7 +148,7 @@ export default function AboutPage() {
                                         {/* Timeline dot */}
                                         <div className="absolute left-6 w-4 h-4 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full border-4 border-background hidden md:block" />
 
-                                        <Card className="md:ml-16 shadow-lg hover:shadow-xl transition-shadow duration-300">
+                                        <Card className="md:ml-16 shadow-lg bg-white hover:shadow-xl transition-shadow duration-300">
                                             <CardHeader>
                                                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
                                                     <CardTitle className="text-xl">{job.title}</CardTitle>
@@ -185,7 +192,7 @@ export default function AboutPage() {
                             </h2>
                             <div className="grid gap-4">
                                 {certifications.map((cert, index) => (
-                                    <Card key={index} className="p-4 hover:shadow-md transition-shadow duration-200">
+                                    <Card key={index} className="p-4 bg-white hover:shadow-md transition-shadow duration-200">
                                         <div className="flex items-center gap-3">
                                             <div className="w-2 h-2 bg-gradient-to-r from-blue-600 to-purple-600 rounded-full" />
                                             <span className="font-medium">{cert}</span>

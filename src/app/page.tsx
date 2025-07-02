@@ -18,6 +18,7 @@ import kalpabriksha from '@/assets/Screenshot 2025-05-27 145208.png'
 import { Testimonial } from "@/components/testimonial";
 import himani from "@/assets/494857252_1416480189355725_6052832778783234089_n.jpg"
 import pranjal from "@/assets/1747921444235.jpg"
+import pankaj from "@/assets/pankaj.jpeg"
 
 const fadeInUp = {
   initial: { opacity: 0, y: 30 },
@@ -95,6 +96,12 @@ const experience = [
     period: "January 2025 - March 2025",
     description: "As a Frontend Intern, I worked on developing and improving user interfaces for internal platforms aimed at youth empowerment and social impact. Using React.js, I collaborated with the team to build responsive, user-friendly components and ensured a clean, consistent UI aligned with the organization's mission. This experience helped me understand the importance of accessibility, real-world collaboration, and building with purpose.",
   },
+  {
+    title: "Full Stack Developer Intern",
+    company: "Kalpabriksha Nepal",
+    period: "June 2025 - July 2025",
+    description: "Built full-stack web apps using the MENN stack. Worked on UI, APIs, authentication, and database design. Focused on clean code, learning fast, and contributing to real projects.",
+  },
 ]
 
 const skills = [
@@ -124,6 +131,15 @@ const testimonies = [
     rating: 5,
     image: pranjal,
     linkedin: "https://www.linkedin.com/in/pranjal-sapkota-6370822a6/"
+  },
+  {
+    name: "Pankaj Bhattarai",
+    position: "Managed me directly",
+    company: "Kalpabriksha Nepal",
+    testimony: "Anand Chaudhary interned as a Frontend Developer at Kalpabriksha (Jan–Mar 2025), where he led the migration to a React-based stack. He significantly improved performance, UI, and user experience through clean, efficient code and deep React knowledge. Anand stood out for his problem-solving mindset, strong collaboration, and eagerness to learn. He is highly recommended for any development role.",
+    rating: 5,
+    image: pankaj,
+    linkedin: "https://www.linkedin.com/in/pankajbhattarai/"
   },
 ]
 
