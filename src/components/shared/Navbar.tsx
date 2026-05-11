@@ -59,12 +59,17 @@ const Navbar = () => {
 
     // Lock body scroll when menu is open
     useEffect(() => {
-        console.log("Menu open state changed:", open);
         if (open) {
             document.body.style.overflow = "hidden";
+            document.body.style.touchAction = "none";
         } else {
             document.body.style.overflow = "";
+            document.body.style.touchAction = "";
         }
+        return () => {
+            document.body.style.overflow = "";
+            document.body.style.touchAction = "";
+        };
     }, [open]);
 
     const openMenu = () => {
@@ -171,18 +176,15 @@ const Navbar = () => {
                     </div>
 
                     <button
-                        onPointerDown={(e) => {
-                            e.preventDefault(); // Prevent ghost clicks
-                            console.log("Navbar toggle pointer down. Current state:", open);
+                        onClick={() => {
+                            console.log("Navbar toggle clicked. Current state:", open);
                             if (open) {
-                                console.log("Closing menu...");
                                 closeMenu();
                             } else {
-                                console.log("Opening menu...");
                                 openMenu();
                             }
                         }}
-                        className="relative z-[120] text-white cursor-pointer pointer-events-auto p-3 hover:bg-white/10 rounded-full transition-colors flex items-center justify-center touch-none"
+                        className="relative z-[120] text-white cursor-pointer p-3 hover:bg-white/10 rounded-full transition-colors flex items-center justify-center"
                         aria-label="Toggle Menu"
                     >
                         {open ? <X size={32} /> : <Menu size={32} />}
@@ -193,33 +195,33 @@ const Navbar = () => {
             {/* STAGGERED SLIDING WINDOWS */}
 
             <div 
-                className={`fixed inset-0 z-50 transition-all duration-300 ${open ? "visible opacity-100" : "invisible opacity-0 pointer-events-none"} overflow-hidden`}
+                className={`fixed inset-0 z-[999998] transition-all duration-300 ${open ? "visible opacity-100 pointer-events-auto" : "invisible opacity-0 pointer-events-none"} overflow-y-auto`}
             >
 
                 {/* Layer 1 */}
                 <div
                     ref={layer1Ref}
-                    className="absolute inset-0 bg-[#4B684B]"
+                    className="absolute inset-0 bg-[#4B684B] pointer-events-none"
                 />
 
                 {/* Layer 2 */}
                 <div
                     ref={layer2Ref}
-                    className="absolute inset-0 bg-[#3D5D3D]"
+                    className="absolute inset-0 bg-[#3D5D3D] pointer-events-none"
                 />
 
                 {/* Layer 3 */}
                 <div
                     ref={layer3Ref}
-                    className="absolute inset-0 bg-[#324E32]"
+                    className="absolute inset-0 bg-[#324E32] pointer-events-none"
                 />
 
                 {/* Main Panel */}
                 <div
                     ref={panelRef}
-                    className="absolute inset-0 bg-[#FAF6EE] text-[#324E32] pointer-events-auto"
+                    className="absolute inset-0 min-h-full bg-[#FAF6EE] text-[#324E32] pointer-events-auto"
                 >
-                    <div className="flex flex-col justify-center h-full px-8 md:px-20">
+                    <div className="flex flex-col justify-center min-h-full py-20 px-8 md:px-20">
 
                         <div className="space-y-6">
                             {navItems.map((item, index) => (
@@ -232,7 +234,8 @@ const Navbar = () => {
                                             menuItemsRef.current[index] = el;
                                         }}
                                         href={item === 'Home' ? '/' : `/${item.toLowerCase()}`}
-                                        className="block text-5xl md:text-7xl hover:text-[#F5AA17] font-bold uppercase tracking-tight hover:translate-x-3 transition-transform duration-300"
+                                        onClick={() => closeMenu()}
+                                        className="block text-5xl md:text-7xl hover:text-[#F5AA17] font-bold uppercase tracking-tight hover:translate-x-3 transition-transform duration-300 py-2"
                                     >
                                         {item}
                                     </Link>
