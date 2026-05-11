@@ -163,7 +163,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className="fixed top-0 left-0 right-0 md:sticky md:max-w-6xl md:top-5 md:m-5 md:mx-auto z-[999999] p-5 mb-3 w-full h-16 text-white bg-[#324E32] md:rounded-3xl shadow-lg pointer-events-auto">
+            <nav className="fixed top-0 left-0 right-0 md:sticky md:max-w-6xl md:top-5 md:m-5 md:mx-auto z-[999999] p-5 mb-3 w-full h-16 text-white bg-[#324E32] md:rounded-3xl shadow-lg pointer-events-auto transform-gpu">
                 <div className="flex justify-between items-center h-full">
                     <div className="font-bold flex items-center gap-4">
                         <span className="w-10 h-10 flex items-center justify-center rounded bg-[#F5AA17] text-[#324E32]">
@@ -184,7 +184,7 @@ const Navbar = () => {
                                 openMenu();
                             }
                         }}
-                        className="relative z-[120] text-white cursor-pointer p-3 hover:bg-white/10 rounded-full transition-colors flex items-center justify-center"
+                        className="relative z-[120] text-white cursor-pointer p-3 hover:bg-white/10 active:bg-white/20 active:scale-95 rounded-full transition-all flex items-center justify-center transform-gpu"
                         aria-label="Toggle Menu"
                     >
                         {open ? <X size={32} /> : <Menu size={32} />}

@@ -36,7 +36,7 @@ const PageLoader = () => {
                 ease: [0.7, 0, 0.3, 1] 
             } 
           }}
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-[#324E32] overflow-hidden"
+          className="fixed pointer-events-none inset-0 z-[100] flex items-center justify-center bg-[#324E32] overflow-hidden"
         >
           {/* Subtle background pattern or glow */}
           <div className="absolute inset-0 opacity-20 bg-[radial-gradient(circle_at_center,_#F5AA17_0%,_transparent_70%)]" />

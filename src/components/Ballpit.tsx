@@ -105,20 +105,29 @@ class X {
       const elem = document.getElementById(this.#config.id);
       if (elem instanceof HTMLCanvasElement) {
         this.canvas = elem;
-      } else {
-        console.error('Three: Missing canvas or id parameter');
       }
-    } else {
-      console.error('Three: Missing canvas or id parameter');
     }
-    this.canvas!.style.display = 'block';
+
+    if (!this.canvas) {
+      console.error('Three: Missing canvas element');
+      return;
+    }
+
+    this.canvas.style.display = 'block';
     const rendererOptions: WebGLRendererParameters = {
       canvas: this.canvas,
       powerPreference: 'high-performance',
       ...(this.#config.rendererOptions ?? {})
     };
-    this.renderer = new WebGLRenderer(rendererOptions);
-    this.renderer.outputColorSpace = SRGBColorSpace;
+
+    try {
+      this.renderer = new WebGLRenderer(rendererOptions);
+      if (this.renderer) {
+        this.renderer.outputColorSpace = SRGBColorSpace;
+      }
+    } catch (e) {
+      console.error('Three: Failed to create WebGLRenderer', e);
+    }
   }
 
   #initObservers() {
@@ -504,20 +513,6 @@ function createPointerData(options: Partial<PointerData> & { domElement: HTMLEle
     if (!globalPointerActive) {
       document.body.addEventListener('pointermove', onPointerMove as EventListener);
       document.body.addEventListener('pointerleave', onPointerLeave as EventListener);
-      document.body.addEventListener('click', onPointerClick as EventListener);
-
-      document.body.addEventListener('touchstart', onTouchStart as EventListener, {
-        passive: false
-      });
-      document.body.addEventListener('touchmove', onTouchMove as EventListener, {
-        passive: false
-      });
-      document.body.addEventListener('touchend', onTouchEnd as EventListener, {
-        passive: false
-      });
-      document.body.addEventListener('touchcancel', onTouchEnd as EventListener, {
-        passive: false
-      });
       globalPointerActive = true;
     }
   }
@@ -562,7 +557,6 @@ function processPointerInteraction() {
 
 function onTouchStart(e: TouchEvent) {
   if (e.touches.length > 0) {
-    e.preventDefault();
     pointerPosition.set(e.touches[0].clientX, e.touches[0].clientY);
     for (const [elem, data] of pointerMap) {
       const rect = elem.getBoundingClientRect();
@@ -581,7 +575,6 @@ function onTouchStart(e: TouchEvent) {
 
 function onTouchMove(e: TouchEvent) {
   if (e.touches.length > 0) {
-    e.preventDefault();
     pointerPosition.set(e.touches[0].clientX, e.touches[0].clientY);
     for (const [elem, data] of pointerMap) {
       const rect = elem.getBoundingClientRect();
@@ -746,6 +739,17 @@ function createBallpit(canvas: HTMLCanvasElement, config: any = {}): CreateBallp
     size: 'parent',
     rendererOptions: { antialias: true, alpha: true }
   });
+  
+  if (!threeInstance.renderer) {
+    return {
+        three: threeInstance,
+        spheres: null as any,
+        setCount: () => {},
+        togglePause: () => {},
+        dispose: () => threeInstance.dispose()
+    };
+  }
+
   let spheres: Z;
   threeInstance.renderer.toneMapping = ACESFilmicToneMapping;
   threeInstance.camera.position.set(0, 0, 20);

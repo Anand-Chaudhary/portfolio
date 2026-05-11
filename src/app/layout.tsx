@@ -16,21 +16,19 @@ export const metadata: Metadata = {
   description: "Full-stack developer portfolio of Anand Chaudhary showcasing scalable web applications, DevOps projects, AI-powered tools, and modern MENN stack development with React, Next.js, TypeScript, Docker, and cloud technologies.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html
       lang="en"
       className={`${poppins.variable} scroll-smooth antialiased`}
       style={{ fontFamily: 'Poppins, sans-serif' }}
     >
-      <body className="min-h-screen flex flex-col">
-        <PageLoader />
+      <body className="flex flex-col min-h-screen">
+        {/* <PageLoader /> */}
         <Navbar />
-        {children}
+        <main className="flex-grow pt-16 md:pt-0">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>
