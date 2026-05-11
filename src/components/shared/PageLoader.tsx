@@ -8,12 +8,17 @@ const PageLoader = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    console.log("PageLoader mounted");
     // Show loader for 2 seconds (as requested: "2 sections" likely meaning seconds)
     const timer = setTimeout(() => {
+      console.log("PageLoader hiding...");
       setLoading(false);
     }, 2000);
 
-    return () => clearTimeout(timer);
+    return () => {
+        console.log("PageLoader unmounting");
+        clearTimeout(timer);
+    };
   }, []);
 
   return (

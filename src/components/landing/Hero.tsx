@@ -8,8 +8,8 @@ import DualToneButton from "../ui/DualToneButton";
 
 export default function Hero() {
   return (
-    <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
-      <section className="min-h-screen flex items-center py-12">
+    <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 overflow-hidden">
+      <div className="min-h-screen flex items-center py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-10 items-center w-full">
 
           {/* LEFT */}
@@ -131,7 +131,7 @@ export default function Hero() {
             </motion.div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
   );
 }

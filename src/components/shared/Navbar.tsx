@@ -17,12 +17,27 @@ const Navbar = () => {
     const menuItemsRef = useRef<(HTMLAnchorElement | null)[]>([]);
 
     useEffect(() => {
+        console.log("Navbar component mounted");
+        
+        const handleClick = (e: MouseEvent) => {
+            console.log("Global click detected on element:", e.target);
+            const target = e.target as HTMLElement;
+            console.log("Element classes:", target.className);
+            console.log("Element z-index:", window.getComputedStyle(target).zIndex);
+        };
+
+        window.addEventListener("click", handleClick);
+
         const layers = [
             layer1Ref.current,
             layer2Ref.current,
             layer3Ref.current,
             panelRef.current,
         ];
+
+        // Clear any existing animations
+        gsap.killTweensOf(layers);
+        gsap.killTweensOf(menuItemsRef.current);
 
         gsap.set(layers, {
             xPercent: 100,
@@ -33,12 +48,42 @@ const Navbar = () => {
             rotate: 8,
             opacity: 0,
         });
+
+        return () => {
+            window.removeEventListener("click", handleClick);
+            gsap.killTweensOf(layers);
+            gsap.killTweensOf(menuItemsRef.current);
+            document.body.style.overflow = "";
+        };
     }, []);
 
+    // Lock body scroll when menu is open
+    useEffect(() => {
+        console.log("Menu open state changed:", open);
+        if (open) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "";
+        }
+    }, [open]);
+
     const openMenu = () => {
+        console.log("openMenu called");
         setOpen(true);
 
         const tl = gsap.timeline();
+
+        if (!layer1Ref.current || !layer2Ref.current || !layer3Ref.current || !panelRef.current) {
+            console.error("Missing refs in openMenu:", {
+                layer1: !!layer1Ref.current,
+                layer2: !!layer2Ref.current,
+                layer3: !!layer3Ref.current,
+                panel: !!panelRef.current
+            });
+            return;
+        }
+
+        console.log("Starting GSAP open animation");
 
         tl.to(layer1Ref.current, {
             xPercent: 0,
@@ -81,6 +126,7 @@ const Navbar = () => {
                 stagger: 0.08,
                 duration: 0.8,
                 ease: "power4.out",
+                onComplete: () => console.log("Open animation complete")
             },
             "-=0.25"
         );
@@ -112,7 +158,7 @@ const Navbar = () => {
 
     return (
         <>
-            <main className="md:max-w-6xl sticky md:top-5 top-0 z-50 p-5 md:m-5 mb-3 md:mx-auto w-full h-15 text-white bg-[#324E32] md:rounded-3xl">
+            <nav className="fixed top-0 left-0 right-0 md:sticky md:max-w-6xl md:top-5 md:m-5 md:mx-auto z-[999999] p-5 mb-3 w-full h-16 text-white bg-[#324E32] md:rounded-3xl shadow-lg pointer-events-auto">
                 <div className="flex justify-between items-center h-full">
                     <div className="font-bold flex items-center gap-4">
                         <span className="w-10 h-10 flex items-center justify-center rounded bg-[#F5AA17] text-[#324E32]">
@@ -125,23 +171,30 @@ const Navbar = () => {
                     </div>
 
                     <button
-                        onClick={() => {
+                        onPointerDown={(e) => {
+                            e.preventDefault(); // Prevent ghost clicks
+                            console.log("Navbar toggle pointer down. Current state:", open);
                             if (open) {
+                                console.log("Closing menu...");
                                 closeMenu();
                             } else {
+                                console.log("Opening menu...");
                                 openMenu();
                             }
                         }}
-                        className="relative z-[100] text-white"
+                        className="relative z-[120] text-white cursor-pointer pointer-events-auto p-3 hover:bg-white/10 rounded-full transition-colors flex items-center justify-center touch-none"
+                        aria-label="Toggle Menu"
                     >
-                        {open ? <X size={30} /> : <Menu size={30} />}
+                        {open ? <X size={32} /> : <Menu size={32} />}
                     </button>
                 </div>
-            </main>
+            </nav>
 
             {/* STAGGERED SLIDING WINDOWS */}
 
-            <div className="fixed inset-0 z-40 pointer-events-none overflow-hidden">
+            <div 
+                className={`fixed inset-0 z-50 transition-all duration-300 ${open ? "visible opacity-100" : "invisible opacity-0 pointer-events-none"} overflow-hidden`}
+            >
 
                 {/* Layer 1 */}
                 <div
