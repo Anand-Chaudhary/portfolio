@@ -24,9 +24,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       style={{ fontFamily: 'Poppins, sans-serif' }}
     >
       <body className="flex flex-col min-h-screen">
-        {/* <PageLoader /> */}
+        <PageLoader />
         <Navbar />
-        <main className="flex-grow pt-16 md:pt-0">
+        <main className="grow pt-16 md:pt-0">
           {children}
         </main>
         <Footer />
