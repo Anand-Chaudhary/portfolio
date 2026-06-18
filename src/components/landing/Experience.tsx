@@ -1,5 +1,4 @@
 import React from 'react'
-import { motion } from 'framer-motion'
 import { GraduationCap, Briefcase } from 'lucide-react'
 
 const EducationData = [
@@ -31,8 +30,8 @@ const WorkData = [
 const TimelineItem = ({ year, title, subtitle }: { year: string, title: string, subtitle: string }) => (
     <div className="relative pl-8 pb-10 last:pb-0 group">
         {/* Vertical Line */}
-        <div className="absolute left-0 top-0 bottom-0 w-[1px] bg-gray-200 group-last:bg-transparent">
-            <div className="absolute top-0 left-[-3px] w-2 h-2 rounded-full bg-gray-300" />
+        <div className="absolute left-0 top-0 bottom-0 w-px bg-gray-200 group-last:bg-transparent">
+            <div className="absolute top-0 -left-0.75 w-2 h-2 rounded-full bg-gray-300" />
         </div>
         
         <div className="flex flex-col gap-1">
@@ -42,7 +41,7 @@ const TimelineItem = ({ year, title, subtitle }: { year: string, title: string, 
         </div>
     </div>
 )
-
+//eslint-disable-next-line
 const ExperienceCard = ({ title, icon: Icon, items, isEducation }: { title: string, icon: any, items: any[], isEducation?: boolean }) => (
     <div className="bg-[#F8F8F8] rounded-[32px] p-8 sm:p-10 shadow-sm border border-gray-100 flex-1">
         <div className="flex items-center gap-4 mb-10">

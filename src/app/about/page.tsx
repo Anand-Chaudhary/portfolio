@@ -112,7 +112,7 @@ const About = () => {
 
                         <div className="flex flex-wrap gap-6 sm:gap-10 pt-4">
                             {STATS.map((stat, index) => (
-                                <div key={index} className="flex flex-col gap-2 min-w-[120px]">
+                                <div key={index} className="flex flex-col gap-2 min-w-30">
                                     <span className="text-3xl sm:text-4xl font-bold text-[#324E32]">{stat.value}</span>
                                     <span className="text-sm sm:text-base text-[#666666] font-medium uppercase tracking-wide">{stat.label}</span>
                                 </div>
@@ -149,7 +149,7 @@ const About = () => {
                                     <ul className="space-y-3">
                                         {skillGroup.items.map((skill, skillIndex) => (
                                             <li key={skillIndex} className="flex items-center gap-3 text-[#555555]">
-                                                <div className="w-1.5 h-1.5 bg-[#F5AA17] rounded-full flex-shrink-0"></div>
+                                                <div className="w-1.5 h-1.5 bg-[#F5AA17] rounded-full shrink-0"></div>
                                                 <span className="font-medium">{skill}</span>
                                             </li>
                                         ))}
@@ -252,7 +252,7 @@ const About = () => {
                             <div key={idx} className="relative pl-8 border-l-2 border-[#E5E5E5] overflow-hidden">
                                 {/* Animated green timeline fill */}
                                 <div
-                                    className="absolute left-0 top-0 bottom-0 w-[2px] bg-[#324E32] origin-top transition-all duration-300 ease-out"
+                                    className="absolute left-0 top-0 bottom-0 w-0.5 bg-[#324E32] origin-top transition-all duration-300 ease-out"
                                     style={{
                                         height: `${scrollProgress * 100}%`,
                                         opacity: Math.min(scrollProgress * 1.5, 1)
