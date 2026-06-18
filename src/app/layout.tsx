@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import PageLoader from "@/components/shared/PageLoader";
+import LenisProvider from "@/components/ui/LenisProvider";
 
 const poppins = Poppins({
   variable: "--font-geist-sans",
@@ -27,7 +28,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <PageLoader />
         <Navbar />
         <main className="grow pt-16 md:pt-0">
+          <LenisProvider>
           {children}
+          </LenisProvider>
         </main>
         <Footer />
       </body>
