@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
@@ -11,7 +11,7 @@ import { useState } from "react";
 interface ProjectCardProps {
     title: string;
     link?: string;
-    image: string;
+    image: string | StaticImageData;
     technologies: string[];
     onHover: (label: string | null) => void;
 }
@@ -102,7 +102,7 @@ const HoverOverlay = ({ label }: { label: string }) => {
 interface Project {
     title: string;
     link?: string;
-    image: string;
+    image: string | StaticImageData;
     technologies: string[];
 }
 

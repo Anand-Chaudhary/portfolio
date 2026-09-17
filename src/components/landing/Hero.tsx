@@ -47,7 +47,7 @@ export default function Hero() {
             <div className="flex flex-row flex-wrap items-center gap-3 sm:gap-4 pt-2">
               <DualToneButton 
                 text="View Projects" 
-                href="#projects" 
+                href="/projects" 
               />
 
               <button className="border border-[#324E32] text-sm sm:text-lg text-[#324E32] rounded-full px-8 h-14 sm:h-16 font-medium hover:bg-[#324E32] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 w-fit">

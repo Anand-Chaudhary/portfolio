@@ -1,31 +1,35 @@
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { ProjectsSection } from "../ui/ProjectCard";
 import DualToneButton from "../ui/DualToneButton";
+import topnotch from "@/assets/topnotch.png";
+import gurkhaBazaar from "@/assets/gurkhabazaar.png"
+import placeholder from "@/assets/placeholder.png"
+import placeholder2 from "@/assets/placeholder2.png"
 
 const Projects = () => {
     const projects = [
         {
             title: "Code Reviewer",
-            link: "https://codereviewer-4ph0.onrender.com/",
-            image: "https://images.unsplash.com/photo-1771132666487-3d7a048a36df?q=80&w=678&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-            technologies: ["React", "Express", "Docker", "Gemini API", "Nginx"]
+            link: "https://github.com/Anand-Chaudhary/codeReviewer",
+            image: placeholder,
+            technologies: ["React", "Express", "Docker", "Gemini API", "Nginx", "K8s", "IaC", "AWS"]
         },
         {
             title: "Presento",
-            link: "#",
-            image: "https://images.unsplash.com/photo-1771132666487-3d7a048a36df?q=80&w=678&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            link: "https://github.com/Anand-Chaudhary/slides-go",
+            image: placeholder2,
             technologies: ["React", "Express", "Docker", "Gemini API", "Supabase", "Docker", "IaC", "K8s", "AWS", "Nginx"]
         },
         {
             title: "Topnotch Sydney",
             link: "https://topnotch.sydney/",
-            image: "https://images.unsplash.com/photo-1771132666487-3d7a048a36df?q=80&w=678&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            image: topnotch,
             technologies: ["Next.js", "Framer-Motion", "PHP"]
         },
         {
             title: "Gurkha Bazaar",
             link: "https://gurkhabazaar.com/",
-            image: "https://images.unsplash.com/photo-1771132666487-3d7a048a36df?q=80&w=678&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+            image: gurkhaBazaar,
             technologies: ["Next.js", "Framer-Motion"]
         },
     ];
@@ -45,7 +49,7 @@ const Projects = () => {
                 </div>
                 <DualToneButton 
                     text="View All Projects" 
-                    href="#" 
+                    href="/projects" 
                 />
             </section>
             <section className="w-full max-w-7xl mx-auto">
