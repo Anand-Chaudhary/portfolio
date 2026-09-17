@@ -122,7 +122,8 @@ const About = () => {
                         <div className="pt-6">
                             <DualToneButton
                                 text="Download CV"
-                                href="#"
+                                href="/Anand_Resume.pdf"
+                                download="Anand_Resume.pdf"
                             />
                         </div>
                     </div>

@@ -10,7 +10,7 @@ const STATS = [
     },
     {
         label: "Projects Completed",
-        value: "50+"
+        value: "10+"
     },
     {
         label: "Clients Satisfied",
@@ -60,7 +60,8 @@ const About = () => {
                         <div className="pt-4">
                             <DualToneButton 
                                 text="Download CV" 
-                                href="#" 
+                                href="/Anand_Resume.pdf"
+                                download="Anand_Resume.pdf"
                             />
                         </div>
                     </section>

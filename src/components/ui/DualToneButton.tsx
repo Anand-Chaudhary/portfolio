@@ -2,27 +2,39 @@
 
 import React from "react";
 import Link from "next/link";
-import { ArrowUpRight, LucideIcon } from "lucide-react";
+import { ArrowUpRight, Download, LucideIcon } from "lucide-react";
 
 interface DualToneButtonProps {
     text: string;
     href?: string;
     onClick?: () => void;
-    icon?: LucideIcon;
+    icon?: LucideIcon | "download" | "arrow";
     className?: string;
     target?: string;
     type?: "button" | "submit" | "reset";
+    download?: boolean | string;
 }
 
 const DualToneButton = ({ 
     text, 
     href, 
     onClick, 
-    icon: Icon = ArrowUpRight, 
+    icon, 
     className = "", 
     target,
-    type = "button"
+    type = "button",
+    download,
 }: DualToneButtonProps) => {
+    // Resolve icon: auto-select Download if download prop is present
+    let IconComponent: LucideIcon = ArrowUpRight;
+    if (icon === "download" || (!icon && download)) {
+        IconComponent = Download;
+    } else if (icon === "arrow") {
+        IconComponent = ArrowUpRight;
+    } else if (typeof icon === "function" || typeof icon === "object") {
+        IconComponent = icon;
+    }
+
     const content = (
         <div className={`bg-[#F5AA17] group cursor-pointer flex items-center justify-between p-1 rounded-full hover:shadow-lg transition-all duration-300 w-fit h-14 sm:h-16 ${className}`}>
             <div className="bg-[#324E32] px-6 sm:px-10 h-full flex items-center justify-center text-white rounded-full transition-all duration-300 group-hover:bg-white group-hover:text-[#324E32] text-sm sm:text-base font-bold whitespace-nowrap">
@@ -30,12 +42,20 @@ const DualToneButton = ({
             </div>
 
             <div className="h-10 sm:h-12 w-10 sm:w-12 ml-2 rounded-full flex items-center justify-center bg-white transition-all duration-300 group-hover:bg-[#324E32] group-hover:text-white flex-shrink-0">
-                <Icon size={18} className="sm:w-5 sm:h-5" />
+                <IconComponent size={18} className="sm:w-5 sm:h-5" />
             </div>
         </div>
     );
 
     if (href) {
+        if (download) {
+            return (
+                <a href={href} download={download} target={target} className="w-fit block">
+                    {content}
+                </a>
+            );
+        }
+
         return (
             <Link href={href} target={target} className="w-fit block">
                 {content}

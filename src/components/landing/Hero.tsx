@@ -1,7 +1,7 @@
 'use client'
 
 import Image from "next/image";
-import { ArrowUpRight, Play, MousePointer2 } from "lucide-react";
+import { ArrowUpRight, Play, MousePointer2, Download } from "lucide-react";
 import { motion } from "framer-motion";
 import complete from '@/assets/complete_image.png'
 import DualToneButton from "../ui/DualToneButton";
@@ -50,10 +50,14 @@ export default function Hero() {
                 href="/projects" 
               />
 
-              <button className="border border-[#324E32] text-sm sm:text-lg text-[#324E32] rounded-full px-8 h-14 sm:h-16 font-medium hover:bg-[#324E32] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 w-fit">
-                <Play />
+              <a 
+                href="/Anand_Resume.pdf"
+                download="Anand_Resume.pdf"
+                className="border border-[#324E32] text-sm sm:text-lg text-[#324E32] rounded-full px-8 h-14 sm:h-16 font-medium hover:bg-[#324E32] hover:text-white transition-all duration-300 flex items-center justify-center gap-2 w-fit cursor-pointer"
+              >
+                <Download size={20} />
                 Resume
-              </button>
+              </a>
             </div>
           </div>
 
